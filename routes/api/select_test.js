@@ -30,7 +30,7 @@ exports = module.exports = function(req, res) {
                     pass += client.login_password_token;
                 }
                 var env = client.org_type;
-
+                console.log('USING PASS: %s', pass);
                 var service = new SforceService();
                 service.login(uname, pass, env)
                     .then(function(loginRes) {
@@ -105,7 +105,6 @@ exports = module.exports = function(req, res) {
                 };
 
                 var sendResponse = function() {
-                    console.log('SENDING %j', resp);
                     res.apiResponse(resp);
                 };
 
