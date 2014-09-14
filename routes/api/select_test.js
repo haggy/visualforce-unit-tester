@@ -45,11 +45,13 @@ exports = module.exports = function(req, res) {
     };
 
     var loadPage = function() {
+        var pass = client.login_password +
+                    (client.login_password_token ? client.login_password_token : '');
         var sfLoader = new SforcePageLoader({
             instanceUrl: loginResult.instanceUrl,
             accessToken: loginResult.accessToken,
             userName: client.login_username,
-            password: client.login_password,
+            password: pass,
             environment: client.org_type
         });
 
