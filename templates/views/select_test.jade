@@ -1,0 +1,49 @@
+extends ../layouts/default
+
+block content
+    div.container
+        div.row.spinner
+            div.col-md-2.col-md-offset-5
+                img(src='/images/purp-red-spin-96x96.gif')
+        - if(typeof(locals.SfWindow) === 'undefined') {
+            div#test-select-block.row
+                div(class='standard-content-col col-md-6 col-md-offset-3')
+                    form(id='test-select-form', method='POST')
+                        input(type='hidden', name='page_name', id='page-name-input', value='')
+                        input(type='hidden', name='test_data', id='res-name-input', value='')
+                        input(type='hidden', name='client_id', id='client-id-input', value='')
+                        div.dropdown#client-select-dd
+                            a.dropdown-toggle('data-toggle'='dropdown', href='#') Select Client
+                                span.caret
+                            ul.dropdown-menu(role='menu')
+                                each client in clients
+                                    li
+                                        a('data-id'='#{client._id}') #{client.name}
+                        div(class='dropdown', id='page-select-dd')
+                            a(class='dropdown-toggle', 'data-toggle'='dropdown', href='#') Select Page
+                                span(class='caret')
+                            ul(class='dropdown-menu', role='menu')
+                                each page in pages
+                                    li
+                                        a('data-sobject_id'='#{page.Id}', 'data-page_name'='#{page.Name}') #{page.Name}
+                        div(class='dropdown', id='res-select-dd')
+                            a(class='dropdown-toggle', 'data-toggle'='dropdown', href='#') Select Test
+                                span(class='caret')
+                            ul(class='dropdown-menu', role='menu')
+
+                        input(type='submit', value='Run tests', class='form-control btn-info', name='submit_test_page')
+        - }
+
+        #mocha
+
+        div(id='rerun-test-block')
+            div(class='row')
+                div(class='col-md-11 col-md-offset-1')
+                    a(id='rerun-test') Re-run this test
+            div(class='row')
+                div(class='col-md-11 col-md-offset-1')
+                    a(href='/select-test') Run other tests
+
+block js
+    script(src='/js/lib/page-parser.js')
+    script(src='/js/select-test.js')

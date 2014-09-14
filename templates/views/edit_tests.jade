@@ -1,0 +1,72 @@
+extends ../layouts/default
+
+block css
+    link(rel='stylesheet', href='/styles/codemirror/codemirror.css')
+    link(rel='stylesheet', href='/styles/codemirror/overrides.css')
+
+block content
+    div#edit-test-main-cont.container
+        div#select-action-block.collapse-group
+            div.row
+                div.col-md-4.col-md-offset-4
+                    button#new-test-btn.form-control.btn-info New Test
+            div(class='row')
+                div(class='col-md-4 col-md-offset-4')
+                    button(class='form-control btn-info', id='edit-test-btn') Edit Test
+        div(class='row', id='new-test-block')
+            div(class='rowheader')
+                h3 New test
+            div(class='col-md-4 col-md-offset-4')
+                form(method='POST', action='createTest')
+                    input(id='new-test-name-input', type='text', class='form-control', name='test_name', placeholder='New test name')
+                    input(type='hidden', name='client_id', id='newtest-client-id-input', value='')
+                    input(type='hidden', name='test_type', id='newtest-type-input', value='')
+                    div#newtest-client-select-dd.dropdown
+                        a(class='dropdown-toggle', 'data-toggle'='dropdown', href='#') Select Client
+                            span(class='caret')
+                        ul(class='dropdown-menu', role='menu')
+                            each client in clients
+                                li
+                                    a('data-id'='#{client._id}') #{client.name}
+                    div#newtest-type-select-dd.dropdown
+                        a(class='dropdown-toggle', 'data-toggle'='dropdown', href='#') Select Type
+                            span(class='caret')
+                        ul(class='dropdown-menu', role='menu')
+                            li
+                                a('data-test_type'='Static Resource') Static Resource
+                            li
+                                a('data-test_type'='VF Page') VF Page
+
+                    input(type='submit', class=' form-control btn-info', value='Create Test')
+        div(class='row', id='test-select-block')
+            div(class='col-md-12')
+                form(method='POST')
+                    input(type='hidden', name='test_data', id='test-data-input', value='')
+                    div(class='dropdown', id='client-select-dd')
+                        a(class='dropdown-toggle', 'data-toggle'='dropdown', href='#') Select Client
+                            span(class='caret')
+                        ul(class='dropdown-menu', role='menu')
+                            each client in clients
+                                li
+                                    a('data-id'='#{client._id}') #{client.name}
+                    div#test-select-dd.dropdown
+                        a(class='dropdown-toggle', 'data-toggle'='dropdown', href='#') Select Test
+                            span(class='caret')
+                        ul(class='dropdown-menu', role='menu')
+                            //each file in files
+                            //    li
+                            //        a('data-filename'='#{file}') #{file}
+
+        div(class='row', id='test-edit-block')
+            div(class='col-md-12')
+                form(method='POST')
+                    input(type='hidden', name='test_id', id='edittest-id-input', value='')
+                    textarea(id='editor', name='test_source')
+                    div(class='container')
+                        div(class='row')
+                            div(class='col-md-2')
+                                button(id='save-test-btn', type='submit', class='form-control btn-warning') Save
+                                    img(src="/images/white-grey-spinner_32x32.gif", style="height: 24px;")
+
+block js
+    script(src='/js/edit-tests.js')

@@ -1,0 +1,10 @@
+.CodeMirror {
+    /* Need important here since main-styles is loaded before codemirror CSS*/
+    /*height: 400px !important;*/
+    border: 1px solid #34495d;
+    height: auto;
+}
+.CodeMirror-scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+}

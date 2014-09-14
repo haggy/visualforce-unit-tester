@@ -1,0 +1,25 @@
+extends ../layouts/default
+
+block content
+    .container: .jumbotron
+        .row
+            .col-lg-12
+                if user
+                    h1 Welcome back #{user.name.first}!
+                else
+                    h1 Welcome
+                    p Please <a href='/keystone/signin'>sign in</a> to get started
+        p
+        hr
+        p This is the Visualforce Unit Tester. Here's some useful technology to know.
+        p <a href='http://visionmedia.github.io/mocha/' target='_blank'>Mocha</a> is the test framework you'll use to create the tests.
+        p <a href='http://requirejs.org/' target='_blank'>RequireJS</a> is a JavaScript file and module loader.
+        hr
+        h3 This site powered by
+        #powered-by-img-row.row
+            .col-lg-2
+                img(src='/images/trifecta_html5.svg')
+            #sfcloud.col-lg-2
+                img(src='/images/sfdc-cloud.png')
+            #mochalogo.col-lg-2
+                img(src='/images/mocha_logo.png')
